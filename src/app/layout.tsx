@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Metadata } from "next";
 import { domAnimation, LazyMotion } from "motion/react";
 import * as m from "motion/react-m";
+import { Banner } from "fumadocs-ui/components/banner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
           transition={{ duration: 1.23 }}
           className="flex flex-col min-h-screen"
         >
+          <Banner className="bg-black text-red-500">The site is currently under active development.</Banner>
           <RootProvider>{children}</RootProvider>
         </m.body>
       </LazyMotion>
