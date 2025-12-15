@@ -26,6 +26,8 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://vazen.dev"),
 };
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={fontsVariable} suppressHydrationWarning>
@@ -36,7 +38,9 @@ export default function Layout({ children }: LayoutProps<"/">) {
           transition={{ duration: 1.23 }}
           className="flex flex-col min-h-screen font-geist antialiased"
         >
-          <Banner className="bg-black text-red-500">The site is currently under active development.</Banner>
+          {isProduction && (
+            <Banner className="bg-black text-red-500">The site is currently under active development.</Banner>
+          )}
           <RootProvider>{children}</RootProvider>
         </m.body>
       </LazyMotion>

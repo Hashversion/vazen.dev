@@ -13,7 +13,7 @@ export const Icons = {
         {...props}
       >
         <g clipPath="url(#clip0_9_7)">
-          <circle cx="128" cy="128" r="128" fill="black" />
+          <circle cx="128" cy="128" r="128" fill="currentColor" />
         </g>
         <defs>
           <clipPath id="clip0_9_7">
