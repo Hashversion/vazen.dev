@@ -1,3 +1,8 @@
 @import "tailwindcss";
 @import "fumadocs-ui/css/black.css";
 @import "fumadocs-ui/css/preset.css";
+
+@theme inline {
+  --font-geist: var(--font-geist-sans);
+  --font-asul: var(--font-asul-sans);
+}
