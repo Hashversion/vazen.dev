@@ -8,7 +8,7 @@ import { fontsVariable } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   title: {
-    template: "&s :: Vazen",
+    template: "%s :: Vazen",
     default: "Vazen",
   },
   description: "A production grade monorepo starter to build full-stack applications on cloudflare",
