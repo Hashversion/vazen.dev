@@ -1,4 +1,5 @@
 import { Asul, Geist } from "next/font/google";
+import localFont from "next/font/local";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -19,7 +20,20 @@ const asul = Asul({
   fallback: ["system-ui", "Segoe UI", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
 });
 
-const fonts = [asul, geist];
+const commitMonoVazen = localFont({
+  src: [
+    {
+      path: "../../public/fonts/CommitMonoVazen.woff2",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  display: "swap",
+  variable: "--font-commitmono-vazen",
+  preload: true,
+});
+
+const fonts = [asul, geist, commitMonoVazen];
 const fontsVariable = fonts.map((font) => font.variable).join(" ");
 
-export { asul, fontsVariable, geist };
+export { asul, fontsVariable, geist, commitMonoVazen };

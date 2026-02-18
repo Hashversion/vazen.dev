@@ -3,7 +3,6 @@ import "@/styles/global.css";
 import { type Metadata, type Viewport } from "next";
 import { domAnimation, LazyMotion } from "motion/react";
 import * as m from "motion/react-m";
-import { Banner } from "fumadocs-ui/components/banner";
 import { fontsVariable } from "@/styles/fonts";
 
 export const metadata: Metadata = {
@@ -48,9 +47,6 @@ export default function Layout({ children }: LayoutProps<"/">) {
           transition={{ duration: 1.23 }}
           className="flex flex-col min-h-screen font-geist antialiased"
         >
-          {isProduction && (
-            <Banner className="bg-black text-red-500">The site is currently under active development.</Banner>
-          )}
           <RootProvider>{children}</RootProvider>
         </m.body>
       </LazyMotion>
