@@ -7,10 +7,10 @@ export default function HomePage() {
       <section className="p-12">
         <div className="max-w-340 mx-auto">
           <div className="max-w-prose space-y-5">
-            <h1 className="text-2xl text-balance font-medium text-start">
+            <h1 className="text-2xl text-balance text-start">
               A production-grade monorepo starter for building full-stack applications on cloudflare
             </h1>
-            <CopyCodeBlock value="npx degit Hashversion/vazen" />
+            <CopyCodeBlock value="npx degit Hashversion/vazen <Your-Project>" />
           </div>
         </div>
       </section>
