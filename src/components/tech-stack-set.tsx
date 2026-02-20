@@ -16,7 +16,7 @@ const stacks = [
   },
   {
     icon: <Icons.TanstackQuery className="size-4" />,
-    stackName: "TanstackQeury",
+    stackName: "Tanstack Query",
   },
   {
     icon: <Icons.Posthog className="size-4" />,
