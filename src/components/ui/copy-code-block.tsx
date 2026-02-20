@@ -16,7 +16,7 @@ export function CopyCodeBlock({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("npx degit Hashversion/vazen <Your-Project>");
+    navigator.clipboard.writeText(value);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
