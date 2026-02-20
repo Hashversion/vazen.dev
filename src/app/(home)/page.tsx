@@ -10,6 +10,7 @@ export default function HomePage() {
             <h1 className="text-2xl text-balance text-start">
               A production-grade monorepo starter for building full-stack applications on cloudflare
             </h1>
+
             <CopyCodeBlock value="npx degit Hashversion/vazen <Your-Project>" />
           </div>
         </div>

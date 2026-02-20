@@ -1,21 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Icons } from "@/components/ui/icons";
-
-async function copyToClipboard(value: string) {
-  if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(value);
-    return;
-  }
-}
 
 export function CopyCodeBlock({
   value,
-  copiedLabel = "Copied",
-  copyLabel = "Copy to clipboard",
   prefix = "$",
-  className = "",
 }: {
   value: string;
   copiedLabel?: string;
@@ -24,41 +14,26 @@ export function CopyCodeBlock({
   className?: string;
 }) {
   const [copied, setCopied] = useState(false);
-  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    return () => {
-      if (resetTimer.current) clearTimeout(resetTimer.current);
-    };
-  }, []);
-
-  const handleCopy = async () => {
-    await copyToClipboard(value);
+  const handleCopy = () => {
+    navigator.clipboard.writeText("npx degit Hashversion/vazen <Your-Project>");
     setCopied(true);
-    if (resetTimer.current) clearTimeout(resetTimer.current);
-    resetTimer.current = setTimeout(() => setCopied(false), 1600);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div
-      className={[
-        "inline-flex items-center gap-3 rounded-[50px] [corner-shape:squircle] bg-neutral-200 dark:bg-neutral-800 px-3 py-1.5 text-sm",
-        className,
-      ].join(" ")}
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="h-10 pl-4 pr-3 rounded-xl text-sm font-medium dark:bg-neutral-800 bg-neutral-200 active:scale-[0.98] transition-all flex items-center gap-3 cursor-pointer group"
     >
-      <code className="truncate flex items-center font-commitmono text-neutral-800 dark:text-neutral-200">
-        <span>{prefix}</span>
-        <span className="ml-[1ch]">{value}</span>
-      </code>
-      <button
-        type="button"
-        className="p-1.5 rounded cursor-pointer transition-colors text-muted-foreground hover:text-foreground"
-        aria-label={copied ? copiedLabel : copyLabel}
-        title={copied ? copiedLabel : copyLabel}
-        onClick={handleCopy}
-      >
+      <span className="font-mono text-muted-foreground select-none">{prefix}</span>
+      <span className="font-commitmono text-[13px]  text-neutral-900 dark:text-neutral-50 text-balance">
+        {value}
+      </span>
+      <span className="size-6 rounded-lg bg-accent text-neutral-800 flex items-center justify-center dark:group-hover:bg-neutral-700 dark:text-white group-hover:bg-neutral-300 transition-colors">
         {copied ? <Icons.Check /> : <Icons.Copy />}
-      </button>
-    </div>
+      </span>
+    </button>
   );
 }
