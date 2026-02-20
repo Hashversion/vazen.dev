@@ -1,5 +1,5 @@
 import { CopyCodeBlock } from "@/components/ui/copy-code-block";
-import Image from "next/image";
+import * as motion from "motion/react-client";
 
 export default function HomePage() {
   return (
@@ -7,11 +7,21 @@ export default function HomePage() {
       <section className="p-12">
         <div className="max-w-340 mx-auto">
           <div className="max-w-prose space-y-5">
-            <h1 className="text-2xl text-balance text-start">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="text-2xl text-balance text-start"
+            >
               A production-grade monorepo starter for building full-stack applications on cloudflare
-            </h1>
-
-            <CopyCodeBlock value="npx degit Hashversion/vazen <Your-Project>" />
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <CopyCodeBlock value="npx degit Hashversion/vazen <Your-Project>" />
+            </motion.div>
           </div>
         </div>
       </section>
