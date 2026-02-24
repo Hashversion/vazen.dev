@@ -1,0 +1,44 @@
+---
+title: API Layer
+description: oRPC architecture, router composition, and context design
+---
+
+The API layer is implemented in `packages/api` and exposed by `apps/web/src/app/api/rpc/[[...rest]]/route.ts`.
+
+## Router Composition
+
+`appRouter` currently exposes:
+
+- `healthCheck` -> returns `"OK"`.
+- `earlyAccess` router -> contains `getWaitlistCount` and `joinWaitlist`.
+
+## Procedure Types
+
+Defined in `packages/api/src/orpc.ts`:
+
+- `publicProcedure`: no auth requirements.
+- `protectedProcedure`: requires authenticated user/session.
+- `adminProcedure`: requires non-`user` role.
+
+All procedures share strongly typed error contracts, including a custom `RATE_LIMITED` error shape.
+
+## Context Construction
+
+`createContext` in `packages/api/src/context.ts` provides:
+
+- `db`: Drizzle client from `@repo/db`.
+- `session`, `user`: retrieved via Better Auth session lookup.
+- `headers`, `cloudflareEnv`: request/binding context.
+
+## HTTP Exposure
+
+`apps/web` API route handler creates:
+
+- `RPCHandler` for `/api/rpc`
+- `OpenAPIHandler` for `/api/rpc/api-reference`
+
+Both use shared router + context and log handler errors via `onError`.
+
+## Validation
+
+Input validation is done with Zod (example: `waitlistSchema` in `packages/api/src/schema/forms.ts`).

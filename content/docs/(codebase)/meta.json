@@ -1,4 +1,12 @@
 {
-  "title": "Casebase",
-  "pages": ["project-structure", "database"]
+  "title": "Codebase",
+  "pages": [
+    "project-structure",
+    "web-app",
+    "api-layer",
+    "authentication",
+    "database",
+    "security-observability",
+    "deployment"
+  ]
 }

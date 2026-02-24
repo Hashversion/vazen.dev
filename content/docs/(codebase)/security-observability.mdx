@@ -1,0 +1,52 @@
+---
+title: Security & Observability
+description: CSP headers, consent, analytics, and Sentry instrumentation
+---
+
+## Security Headers
+
+`packages/security/src/security-headers.ts` uses `@nosecone/next` defaults and customizes CSP directives for:
+
+- PostHog
+- Sentry
+- Scalar API Reference assets
+- Cloudflare Insights
+
+Middleware is wired in `apps/web/src/middleware.ts` using:
+
+- `securityHeadersMiddleware(securityHeadersOptions)`
+
+## Consent Management
+
+`apps/web/src/components/providers/consent-manager.tsx` integrates c15t with:
+
+- `necessary` + `measurement` categories
+- offline mode for local usage
+
+`consent-manager.client.tsx` toggles PostHog capture:
+
+- opt in when measurement consent is enabled
+- opt out when disabled
+
+## Analytics (PostHog)
+
+`packages/analytics/src/posthog.ts` initializes PostHog with:
+
+- `NEXT_PUBLIC_POSTHOG_KEY`
+- `NEXT_PUBLIC_POSTHOG_HOST`
+
+`apps/web/src/instrumentation-client.ts` initializes analytics on client runtime.
+
+## Telemetry (Sentry)
+
+`packages/telemetry` provides:
+
+- `withSentry` wrapper for Next config
+- client/server/edge init modules
+- runtime environment validation (`SENTRY_*`, `NEXT_PUBLIC_SENTRY_DSN`)
+
+Sentry tunnel route is configured as:
+
+- `/_proxy/sentry`
+
+to reduce ad-block interference.

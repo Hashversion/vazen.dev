@@ -1,5 +1,76 @@
 ---
 title: Project Setup
-description: Learn about Learn how to setup vazen
+description: Learn how to set up vazen locally
 icon: Rocket
 ---
+
+This page documents local setup for the monorepo at `~/projects/vazen`.
+
+## Prerequisites
+
+- Node.js `>=22`
+- `pnpm` (repo uses `pnpm@10`)
+- Docker (for local Postgres via Compose)
+
+## 1. Install Dependencies
+
+From the repository root:
+
+```bash
+pnpm install
+```
+
+## 2. Start Local Database
+
+```bash
+pnpm docker:up
+```
+
+This starts PostgreSQL 17 on `localhost:5432` with:
+
+- database: `vazen_db`
+- user: `postgres`
+- password: `postgres`
+
+## 3. Configure Environment Variables
+
+Create environment files for `apps/web` and set required secrets/keys used by:
+
+- DB (`DATABASE_URL`)
+- Auth/cache (`AUTH_CACHE` binding in Cloudflare)
+- Analytics (`NEXT_PUBLIC_POSTHOG_*`)
+- Telemetry (`SENTRY_*`)
+- Payments (`POLAR_*`)
+- Security reporting (`NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`)
+
+See Codebase pages for the full variable list and package-level mapping.
+
+## 4. Run Database Commands
+
+From the monorepo root:
+
+```bash
+pnpm db:generate
+pnpm db:migrate
+```
+
+For schema exploration:
+
+```bash
+pnpm db:studio
+```
+
+## 5. Start Web App
+
+```bash
+pnpm dev:web
+```
+
+The app runs with Next.js dev server (`next dev --turbopack`) through Turborepo filtering.
+
+## Useful Scripts
+
+- `pnpm lint` -> run lint across workspaces.
+- `pnpm typecheck` -> run type checks across workspaces.
+- `pnpm build` -> build all workspaces.
+- `pnpm build:web:stage` / `pnpm build:web:prod` -> OpenNext Cloudflare builds.

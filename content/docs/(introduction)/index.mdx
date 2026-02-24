@@ -5,3 +5,37 @@ icon: Box
 ---
 
 ![vazen header image](/images/home.svg)
+
+Vazen is a strict, production-grade monorepo starter focused on speed, clarity, and maintainability.
+
+It is built for teams who want:
+
+- A clean `apps/* + packages/*` architecture.
+- Type-safe full-stack APIs with oRPC + Zod.
+- Cloudflare-ready deployment defaults.
+- Practical integrations for auth, DB, analytics, security, and observability.
+
+## What Vazen Includes
+
+- `apps/web`: Next.js App Router frontend + API routes.
+- `packages/api`: oRPC router, procedures, and shared schemas.
+- `packages/db`: Drizzle schema + Postgres connection (Hyperdrive-compatible).
+- `packages/auth`: Better Auth server/client setup with plugins.
+- `packages/security`: Nosecone-based security headers/CSP middleware.
+- `packages/analytics`: PostHog initialization and hooks.
+- `packages/telemetry`: Sentry setup wrappers and runtime configs.
+- `packages/payments`: Polar SDK + Better Auth plugin config.
+- `packages/email`: React Email templates.
+- `packages/design-system/*`: UI components, fonts, and tokens.
+
+## Product Goal
+
+Vazen's goal is to remove boilerplate decision fatigue and provide a strict default architecture that can be extended safely.
+
+If you are building:
+
+- MVPs and early products,
+- internal tools,
+- side projects that need production patterns from day 1,
+
+this codebase gives you a stable baseline without locking you into heavy abstraction.

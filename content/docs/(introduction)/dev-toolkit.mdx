@@ -1,15 +1,31 @@
 ---
 title: Dev Toolkit
-description: Learn about what all devlopment tools used
+description: Learn about the development tools used in vazen
 icon: ToolCase
 ---
 
-- pnpm :: Fast, disk-efficient package manager
-- commitlint :: Enforces Conventional Commits
-- lefthook :: Fast Git hooks (pre-commit, pre-push, etc.)
-- knip :: Dead-code analysis and project cleanup
-- Prettier :: Opinionated code formatter
-- ESLint :: Static analysis and linting
-- Docker :: Local development via Docker Compose
-- t3-oss/env-nextjs :: Validates environment variables at build-time
-- Nosecone :: Security headers made simple (Arcjet’s OSS library)
+## Workspace + Build
+
+- `pnpm` for package management.
+- `turborepo` for task orchestration and filtering.
+
+## Code Quality
+
+- `eslint` for linting.
+- `prettier` for formatting.
+- `typescript` for strict typing.
+- `knip` for dead-code/dependency detection.
+
+## Git Workflow
+
+- `lefthook` for fast hooks.
+- `commitlint` with Conventional Commits in `commit-msg`.
+
+## Local Infrastructure
+
+- Docker Compose for local PostgreSQL.
+
+## Runtime Safety
+
+- `@t3-oss/env-nextjs` for typed env validation.
+- `@nosecone/next` for security headers and CSP policies.

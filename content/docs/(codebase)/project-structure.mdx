@@ -2,3 +2,51 @@
 title: Project Structure
 description: An overview on how the entire codebase is structured
 ---
+
+## Monorepo Layout
+
+```txt
+vazen/
+  apps/
+    web/                     # Next.js app + API route handlers
+  packages/
+    api/                     # oRPC router, procedures, schemas
+    auth/                    # Better Auth server/client setup
+    db/                      # Drizzle schema + DB connection
+    analytics/               # PostHog init + hook exports
+    telemetry/               # Sentry setup wrappers
+    security/                # Nosecone security headers/CSP
+    payments/                # Polar SDK + Better Auth integration
+    email/                   # React Email templates
+    ai/                      # Cloudflare Workers AI adapter
+    design-system/
+      ui/                    # Shared UI components/provider/utils
+      fonts/                 # Local + Google font exports
+      tokens/                # Design tokens consumed by UI
+  tooling/
+    eslint-config/           # Shared ESLint presets
+    typescript-config/       # Shared TS configs
+```
+
+## Workspace Definition
+
+`pnpm-workspace.yaml` includes:
+
+- `apps/*`
+- `packages/*`
+- `packages/design-system/*`
+- `tooling/*`
+
+## Runtime Flow (High-Level)
+
+1. Browser hits `apps/web`.
+2. `apps/web/src/app/api/rpc/[[...rest]]/route.ts` dispatches to both `/api/rpc` and `/api/rpc/api-reference`.
+3. API context is built from Cloudflare bindings (`HYPERDRIVE`, `AUTH_CACHE`) and request headers/session.
+4. Routers in `packages/api` use Drizzle from `packages/db`.
+
+## Architectural Principles
+
+- Keep app-specific wiring in `apps/web`.
+- Move reusable business/domain code into `packages/*`.
+- Centralize integration boundaries per concern: `auth`, `db`, `security`, `payments`, `telemetry`, `analytics`.
+- Keep contracts type-safe end-to-end with oRPC + Zod + TypeScript.

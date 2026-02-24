@@ -4,17 +4,40 @@ description: Learn about the tech stack used in vazen.
 icon: SquareStack
 ---
 
-- Next.js v16 :: React framework with app router
-- React.js v19 :: Latest React with React compiler enabled
-- Typescript :: Type-safe development
-- Tailwind CSS v4 :: Utility-first CSS framework
-- oRPC :: tRPC alternative with built-in OpenAPI support
-- Tanstack Query :: Data fetching and caching
-- PostgreSQL :: Primary database
-- Drizzle ORM :: Type-safe queries + Cloudflare Hyperdrive integration (cached, geo-distributed reads)
-- Better-Auth :: Comprehensive authentication framework
-- Polar :: Payments infrastructure
-- React Email :: React-based email templates
-- PostHog :: Web analytics
-- Sentry :: Error monitoring & logging
-- c15t :: Developer-first consent management (cookie compliance); see benchmark results: cookiebench.com
+## Frontend
+
+- Next.js (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- Motion
+
+## API + Data
+
+- oRPC (`@orpc/server`, `@orpc/client`, OpenAPI plugins)
+- TanStack Query
+- PostgreSQL
+- Drizzle ORM + Drizzle Kit
+
+## Auth + Security
+
+- Better Auth
+- Nosecone security headers + CSP middleware
+- c15t consent manager
+
+## Payments + AI + Messaging
+
+- Polar (Better Auth integration + webhooks/checkout)
+- Workers AI provider wrapper
+- React Email templates
+
+## Analytics + Observability
+
+- PostHog
+- Sentry (`@sentry/nextjs`)
+
+## Platform + Tooling
+
+- Cloudflare Workers via OpenNext
+- Wrangler for bindings and environments
+- Turborepo + pnpm workspaces

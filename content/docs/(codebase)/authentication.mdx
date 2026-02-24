@@ -1,0 +1,43 @@
+---
+title: Authentication
+description: Better Auth setup, plugins, and Cloudflare KV secondary storage
+---
+
+Authentication lives in `packages/auth`.
+
+## Server Setup
+
+`packages/auth/src/server.ts` builds Better Auth with:
+
+- Drizzle adapter on Postgres (`@repo/db`).
+- `secondaryStorage` backed by Cloudflare KV (`AUTH_CACHE`).
+- Plugins: `admin()`, `magicLink()` (send function is TODO), `passkey()`, `polar()` for billing/customer linkage.
+
+Cookie behavior is configured with:
+
+- `cookiePrefix: "vazen"`
+- `useSecureCookies: true`
+
+## Client Setup
+
+`packages/auth/src/client.ts` exports `authClient` with plugin clients:
+
+- `adminClient`
+- `magicLinkClient`
+- `passkeyClient`
+- `polarClient`
+
+## Route Integration
+
+`apps/web/src/app/api/auth/[...all]/route.ts` adapts Better Auth into Next.js route handlers using `toNextJsHandler`.
+
+Cloudflare context (`HYPERDRIVE`, `AUTH_CACHE`) is loaded via `getCloudflareContext()`.
+
+## Session in API Context
+
+`packages/api/src/context.ts` resolves the current session through `auth(...).api.getSession({ headers })`, then injects:
+
+- `session`
+- `user`
+
+into oRPC procedure context.

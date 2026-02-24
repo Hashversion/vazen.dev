@@ -1,0 +1,41 @@
+---
+title: Web App
+description: How the Next.js app is structured in apps/web
+---
+
+`apps/web` is the executable app entrypoint for the monorepo.
+
+## Key Responsibilities
+
+- Render UI with Next.js App Router.
+- Expose API endpoints for oRPC/OpenAPI and Better Auth handlers.
+- Initialize providers (theme + React Query).
+- Apply security headers middleware.
+- Configure Cloudflare/OpenNext deployment behavior.
+
+## Important Files
+
+- `src/app/layout.tsx`: global layout, fonts, motion wrapper, providers.
+- `src/app/page.tsx`: homepage example using shared UI and query hooks.
+- `src/app/providers.tsx`: `ThemeProvider` + `QueryClientProvider`.
+- `src/app/api/rpc/[[...rest]]/route.ts`: RPC and OpenAPI handlers.
+- `src/app/api/auth/[...all]/route.ts`: Better Auth route adapters.
+- `src/middleware.ts`: security headers via `@repo/security`.
+- `next.config.ts`: rewrites, typed routes, React compiler, PostHog proxy.
+- `wrangler.jsonc`: Cloudflare worker config + bindings.
+
+## Data Fetching Pattern
+
+- Server-side router client is initialized in `src/lib/orpc.server.ts`.
+- Client-side fallback client is created in `src/lib/orpc.client.ts`.
+- TanStack Query integration uses `orpc.*.queryOptions()` in UI components.
+
+## Query/Hydration Utilities
+
+- `src/lib/query/client.ts`: custom query key hashing + serialize/deserialize.
+- `src/lib/query/hydration.tsx`: helper for React Query hydration boundaries.
+
+## Consent + Analytics
+
+- `src/components/providers/consent-manager.tsx`: c15t consent components.
+- `consent-manager.client.tsx` toggles PostHog capture based on measurement consent.

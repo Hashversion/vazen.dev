@@ -1,0 +1,53 @@
+---
+title: Database
+description: Drizzle ORM setup, schema modules, and migration workflow
+---
+
+Database code lives in `packages/db`.
+
+## Connection Strategy
+
+`getDb(cloudflareEnv)` in `src/index.ts`:
+
+- Uses Hyperdrive connection string (`cloudflareEnv.HYPERDRIVE.connectionString`).
+- Creates a Postgres client via `postgres` package.
+- Reuses the connection globally in non-production for dev stability.
+- Creates Drizzle instance with `casing: "snake_case"`.
+
+## Schema Modules
+
+`src/schema/index.ts` exports:
+
+- `auth.ts`: Better Auth tables (`user`, `session`, `account`, `verification`, `passkey`)
+- `waitlist.ts`: waitlist entries
+- `shared-enums.ts`: shared enums (`user_role`)
+
+## Waitlist Table
+
+`waitlist` currently stores:
+
+- `id` (`uuid`, generated with `uuid v7`)
+- `email` (unique)
+- `joined_at` timestamp
+
+## Migrations + Tooling
+
+Configured through `drizzle.config.ts`:
+
+- dialect: PostgreSQL
+- schema entry: `./src/schema/index.ts`
+- output: `./drizzle`
+- strict mode enabled
+
+Repo-level scripts proxy to package-level commands:
+
+```bash
+pnpm db:generate
+pnpm db:migrate
+pnpm db:push
+pnpm db:studio
+```
+
+## Required Env
+
+- `DATABASE_URL` (used by Drizzle config/env validation)

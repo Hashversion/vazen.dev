@@ -1,0 +1,61 @@
+---
+title: Deployment
+description: Cloudflare/OpenNext deployment model and required bindings
+---
+
+Vazen deploys `apps/web` using OpenNext for Cloudflare Workers.
+
+## Build/Deploy Scripts
+
+In `apps/web/package.json`:
+
+- `build:stage` -> `opennextjs-cloudflare build -e=stage`
+- `build:prod` -> `opennextjs-cloudflare build -e=production`
+- `deploy:stage` -> build + deploy stage
+- `deploy:production` -> build + deploy production
+- `preview` -> local OpenNext preview
+
+Root scripts provide filtered wrappers:
+
+- `pnpm build:web:stage`
+- `pnpm build:web:prod`
+
+## Cloudflare Configuration
+
+`apps/web/wrangler.jsonc` configures:
+
+- worker entry: `.open-next/worker.js`
+- static assets: `.open-next/assets`
+- Hyperdrive binding: `HYPERDRIVE`
+- KV namespace binding: `AUTH_CACHE`
+- stage/production environment overrides
+- production route: `web.vazen.dev`
+
+## Next.js Runtime Configuration
+
+`apps/web/next.config.ts` includes:
+
+- typed routes
+- React compiler
+- PostHog proxy rewrites for `/_proxy/posthog/*` and `/_proxy/posthog/static/*`.
+
+## Environment Variables
+
+Common required variables by package:
+
+- `DATABASE_URL`
+- `POLAR_ACCESS_TOKEN`
+- `POLAR_WEBHOOK_SECRET`
+- `POLAR_ENVIRONMENT`
+- `NEXT_PUBLIC_POSTHOG_KEY`
+- `NEXT_PUBLIC_POSTHOG_HOST`
+- `NEXT_PUBLIC_SENTRY_DSN`
+- `SENTRY_DSN`
+- `SENTRY_ORG`
+- `SENTRY_PROJECT`
+- `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`
+
+Cloudflare bindings (not plain env vars):
+
+- `HYPERDRIVE`
+- `AUTH_CACHE`
